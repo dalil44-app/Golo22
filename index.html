@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>GOLO - عالم كرة القدم</title>
@@ -47,11 +44,11 @@
             overflow-x: hidden;
         }
 
-        /* ===== TOP HEADER - GOLO ===== */
+        /* ===== TOP HEADER - GOLO (Letterboxd Style) ===== */
         .top-header {
             background: var(--bg-primary);
             border-bottom: 1px solid var(--border-light);
-            padding: 14px 20px;
+            padding: 16px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -61,11 +58,12 @@
         }
 
         .logo-golo {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 900;
             color: var(--text-primary);
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-decoration: none;
+            font-family: 'Tajawal', sans-serif;
         }
 
         .logo-golo span {
@@ -78,7 +76,7 @@
             border-bottom: 1px solid var(--border-light);
             padding: 0 20px;
             position: sticky;
-            top: 56px;
+            top: 64px;
             z-index: 99;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -144,201 +142,91 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== MATCHES SECTION ===== */
-        .date-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
+        /* ===== LEGENDARY MATCHES - POSTER GRID (Like Letterboxd Films) ===== */
+        .poster-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
             padding: 0 4px;
         }
 
-        .date-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--text-primary);
+        @media (min-width: 480px) {
+            .poster-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
         }
 
-        .date-subtitle {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
+        @media (min-width: 768px) {
+            .poster-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
         }
 
-        .match-item {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius);
-            margin-bottom: 16px;
+        .poster-card {
+            position: relative;
+            border-radius: var(--radius-sm);
             overflow: hidden;
-            transition: all 0.2s;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            aspect-ratio: 2/3;
+            background: var(--bg-secondary);
         }
 
-        .match-item:hover {
+        .poster-card:hover {
+            transform: scale(1.03);
             box-shadow: var(--shadow-hover);
-            border-color: var(--border);
         }
 
-        .match-league-bar {
-            background: var(--bg-secondary);
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid var(--border-light);
+        .poster-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .league-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            color: white;
+        .poster-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 10px 10px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .league-name {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-secondary);
+        .poster-card:hover .poster-overlay {
+            opacity: 1;
         }
 
-        .match-time-badge {
-            margin-right: auto;
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--accent);
-            background: rgba(45, 106, 79, 0.1);
-            padding: 3px 10px;
-            border-radius: 20px;
-        }
-
-        .match-body {
-            padding: 20px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .team-side {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            flex: 1;
-        }
-
-        .team-logo {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--bg-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            border: 2px solid var(--border-light);
-        }
-
-        .team-name {
+        .poster-teams {
             font-size: 13px;
             font-weight: 700;
-            color: var(--text-primary);
+            color: white;
+            text-align: center;
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+
+        .poster-year {
+            font-size: 11px;
+            color: rgba(255,255,255,0.7);
             text-align: center;
         }
 
-        .match-center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            min-width: 80px;
-        }
-
-        .match-score {
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--text-primary);
-            letter-spacing: 4px;
-        }
-
-        .match-status {
-            font-size: 11px;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-        }
-
-        .status-live {
-            background: #e74c3c;
-            color: white;
-            animation: pulse 2s infinite;
-        }
-
-        .status-upcoming {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-        }
-
-        .status-finished {
-            background: var(--accent);
-            color: white;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .match-minute {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .match-actions {
-            display: flex;
-            gap: 8px;
-            padding: 12px 16px;
-            border-top: 1px solid var(--border-light);
-            background: var(--bg-secondary);
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            background: var(--bg-primary);
-            color: var(--text-secondary);
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: all 0.2s;
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        .action-btn:hover {
-            border-color: var(--accent);
+        .poster-rating {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.7);
             color: var(--accent);
-        }
-
-        .action-btn.primary {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        .action-btn.primary:hover {
-            background: var(--accent-light);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            border: 1.5px solid var(--accent);
         }
 
         /* ===== NEWS SECTION ===== */
@@ -961,7 +849,7 @@
         @media (min-width: 768px) {
             body {
                 padding-bottom: 0;
-                padding-top: 110px;
+                padding-top: 118px;
             }
 
             .bottom-nav {
@@ -975,7 +863,7 @@
 
             .upper-nav {
                 position: fixed;
-                top: 56px;
+                top: 64px;
                 justify-content: center;
             }
 
@@ -986,6 +874,17 @@
 
             .main-content {
                 max-width: 800px;
+            }
+
+            .poster-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .poster-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
         }
     </style>
@@ -1003,156 +902,140 @@
             <button class="nav-tab" data-section="news">أخبار</button>
             <button class="nav-tab" data-section="lists">قوائم</button>
             <button class="nav-tab" data-section="reviews">مراجعات</button>
-            <button class="nav-tab active" data-section="matches">مباريات اليوم</button>
+            <button class="nav-tab active" data-section="matches">مباريات</button>
         </div>
     </nav>
 
     <!-- Main Content -->
     <main class="main-content">
 
-        <!-- MATCHES SECTION (Active by default) -->
+        <!-- LEGENDARY MATCHES SECTION - Poster Grid (Active by default) -->
         <section id="matches-section" class="section-content active">
-            <div class="date-header">
-                <div>
-                    <div class="date-title">مباريات اليوم</div>
-                    <div class="date-subtitle">السبت، 26 أبريل 2026</div>
+            <div class="poster-grid">
+                <!-- Match 1 -->
+                <div class="poster-card" onclick="showToast('نهائي كأس العالم 2022')">
+                    <img src="https://images.unsplash.com/photo-1522778119026-d647f0565c6a?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">الأرجنتين × فرنسا</div>
+                        <div class="poster-year">2022</div>
+                    </div>
+                    <div class="poster-rating">4.9</div>
                 </div>
-            </div>
 
-            <!-- Live Match -->
-            <div class="match-item">
-                <div class="match-league-bar">
-                    <div class="league-icon"><i class="fas fa-trophy"></i></div>
-                    <span class="league-name">الدوري الإنجليزي الممتاز</span>
-                    <span class="match-time-badge">مباشر</span>
-                </div>
-                <div class="match-body">
-                    <div class="team-side">
-                        <div class="team-logo">⚽</div>
-                        <div class="team-name">ليفربول</div>
+                <!-- Match 2 -->
+                <div class="poster-card" onclick="showToast('معجزة إسطنبول')">
+                    <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">ليفربول × ميلان</div>
+                        <div class="poster-year">2005</div>
                     </div>
-                    <div class="match-center">
-                        <div class="match-score">2 - 1</div>
-                        <span class="match-status status-live">مباشر</span>
-                        <span class="match-minute">الدقيقة 67</span>
-                    </div>
-                    <div class="team-side">
-                        <div class="team-logo">⚽</div>
-                        <div class="team-name">توتنهام</div>
-                    </div>
+                    <div class="poster-rating">5.0</div>
                 </div>
-                <div class="match-actions">
-                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى المفضلة')">
-                        <i class="far fa-heart"></i> مفضلة
-                    </button>
-                    <button class="action-btn primary" onclick="showToast('افتح صفحة التقييم')">
-                        <i class="fas fa-pen"></i> راجع المباراة
-                    </button>
-                </div>
-            </div>
 
-            <!-- Upcoming Match 1 -->
-            <div class="match-item">
-                <div class="match-league-bar">
-                    <div class="league-icon"><i class="fas fa-trophy"></i></div>
-                    <span class="league-name">الدوري الإسباني</span>
-                    <span class="match-time-badge">21:00</span>
-                </div>
-                <div class="match-body">
-                    <div class="team-side">
-                        <div class="team-logo">⚽</div>
-                        <div class="team-name">ريال مدريد</div>
+                <!-- Match 3 -->
+                <div class="poster-card" onclick="showToast('الكلاسيكو التاريخي')">
+                    <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">برشلونة × ريال مدريد</div>
+                        <div class="poster-year">2010</div>
                     </div>
-                    <div class="match-center">
-                        <div class="match-score">- -</div>
-                        <span class="match-status status-upcoming">لم تبدأ</span>
-                        <span class="match-minute">خلال 4 ساعات</span>
-                    </div>
-                    <div class="team-side">
-                        <div class="team-logo">⚽</div>
-                        <div class="team-name">برشلونة</div>
-                    </div>
+                    <div class="poster-rating">4.9</div>
                 </div>
-                <div class="match-actions">
-                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى التذكيرات')">
-                        <i class="far fa-bell"></i> ذكرني
-                    </button>
-                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى القائمة')">
-                        <i class="fas fa-plus"></i> أضف للقائمة
-                    </button>
-                </div>
-            </div>
 
-            <!-- Upcoming Match 2 -->
-            <div class="match-item">
-                <div class="match-league-bar">
-                    <div class="league-icon"><i class="fas fa-trophy"></i></div>
-                    <span class="league-name">دوري أبطال أوروبا</span>
-                    <span class="match-time-badge">23:00</span>
-                </div>
-                <div class="match-body">
-                    <div class="team-side">
-                        <div class="team-logo">⚽</div>
-                        <div class="team-name">بايرن ميونخ</div>
+                <!-- Match 4 -->
+                <div class="poster-card" onclick="showToast('البرازيل × ألمانيا')">
+                    <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">البرازيل × ألمانيا</div>
+                        <div class="poster-year">2014</div>
                     </div>
-                    <div class="match-center">
-                        <div class="match-score">- -</div>
-                        <span class="match-status status-upcoming">لم تبدأ</span>
-                        <span class="match-minute">خلال 6 ساعات</span>
-                    </div>
-                    <div class="team-side">
-                        <div class="team-logo">⚽</div>
-                        <div class="team-name">مانشستر سيتي</div>
-                    </div>
+                    <div class="poster-rating">4.5</div>
                 </div>
-                <div class="match-actions">
-                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى التذكيرات')">
-                        <i class="far fa-bell"></i> ذكرني
-                    </button>
-                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى القائمة')">
-                        <i class="fas fa-plus"></i> أضف للقائمة
-                    </button>
-                </div>
-            </div>
 
-            <!-- Finished Match -->
-            <div class="match-item">
-                <div class="match-league-bar">
-                    <div class="league-icon"><i class="fas fa-trophy"></i></div>
-                    <span class="league-name">الدوري الإيطالي</span>
-                    <span class="match-time-badge">انتهت</span>
+                <!-- Match 5 -->
+                <div class="poster-card" onclick="showToast('نهائي دوري الأبطال')">
+                    <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">ريال مدريد × أتلتيكو</div>
+                        <div class="poster-year">2014</div>
+                    </div>
+                    <div class="poster-rating">4.7</div>
                 </div>
-                <div class="match-body">
-                    <div class="team-side">
-                        <div class="team-logo">⚽</div>
-                        <div class="team-name">يوفنتوس</div>
+
+                <!-- Match 6 -->
+                <div class="poster-card" onclick="showToast('مانشستر سيتي × QPR')">
+                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">مانشستر سيتي × QPR</div>
+                        <div class="poster-year">2012</div>
                     </div>
-                    <div class="match-center">
-                        <div class="match-score">3 - 0</div>
-                        <span class="match-status status-finished">انتهت</span>
-                    </div>
-                    <div class="team-side">
-                        <div class="team-logo">⚽</div>
-                        <div class="team-name">ميلان</div>
-                    </div>
+                    <div class="poster-rating">5.0</div>
                 </div>
-                <div class="match-actions">
-                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى المفضلة')">
-                        <i class="far fa-heart"></i> مفضلة
-                    </button>
-                    <button class="action-btn primary" onclick="showToast('افتح صفحة التقييم')">
-                        <i class="fas fa-pen"></i> راجع المباراة
-                    </button>
+
+                <!-- Match 7 -->
+                <div class="poster-card" onclick="showToast('إيطاليا × فرنسا')">
+                    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">إيطاليا × فرنسا</div>
+                        <div class="poster-year">2006</div>
+                    </div>
+                    <div class="poster-rating">4.8</div>
+                </div>
+
+                <!-- Match 8 -->
+                <div class="poster-card" onclick="showToast('برشلونة × باريس')">
+                    <img src="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">برشلونة × باريس</div>
+                        <div class="poster-year">2017</div>
+                    </div>
+                    <div class="poster-rating">4.8</div>
+                </div>
+
+                <!-- Match 9 -->
+                <div class="poster-card" onclick="showToast('توتنهام × أياكس')">
+                    <img src="https://images.unsplash.com/photo-1522778119026-d647f0565c6a?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">توتنهام × أياكس</div>
+                        <div class="poster-year">2019</div>
+                    </div>
+                    <div class="poster-rating">4.7</div>
+                </div>
+
+                <!-- Match 10 -->
+                <div class="poster-card" onclick="showToast('ألمانيا × إيطاليا')">
+                    <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">ألمانيا × إيطاليا</div>
+                        <div class="poster-year">2006</div>
+                    </div>
+                    <div class="poster-rating">4.8</div>
+                </div>
+
+                <!-- Match 11 -->
+                <div class="poster-card" onclick="showToast('ريال مدريد × ليفربول')">
+                    <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">ريال مدريد × ليفربول</div>
+                        <div class="poster-year">2018</div>
+                    </div>
+                    <div class="poster-rating">4.6</div>
+                </div>
+
+                <!-- Match 12 -->
+                <div class="poster-card" onclick="showToast('البرتغال × فرنسا')">
+                    <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400" alt="Match">
+                    <div class="poster-overlay">
+                        <div class="poster-teams">البرتغال × فرنسا</div>
+                        <div class="poster-year">2016</div>
+                    </div>
+                    <div class="poster-rating">4.5</div>
                 </div>
             </div>
         </section>
 
         <!-- NEWS SECTION -->
         <section id="news-section" class="section-content">
-            <div class="date-header">
-                <div class="date-title">أخبار كرة القدم</div>
-            </div>
-
             <div class="news-item">
                 <img class="news-image" src="https://images.unsplash.com/photo-1522778119026-d647f0565c6a?w=600" alt="News">
                 <div class="news-content">
@@ -1194,10 +1077,6 @@
 
         <!-- LISTS SECTION -->
         <section id="lists-section" class="section-content">
-            <div class="date-header">
-                <div class="date-title">قوائم المستخدمين</div>
-            </div>
-
             <div class="list-card">
                 <div class="list-header">
                     <div class="list-thumbnail">🏆</div>
@@ -1258,10 +1137,6 @@
 
         <!-- REVIEWS SECTION -->
         <section id="reviews-section" class="section-content">
-            <div class="date-header">
-                <div class="date-title">مراجعات الجمهور</div>
-            </div>
-
             <div class="review-item">
                 <div class="review-header">
                     <div class="reviewer-avatar">م</div>
@@ -1270,9 +1145,9 @@
                         <div class="reviewer-handle">@mohammedali</div>
                     </div>
                 </div>
-                <span class="review-match-tag">ليفربول × توتنهام - البريميرليغ</span>
+                <span class="review-match-tag">نهائي كأس العالم 2022 - الأرجنتين × فرنسا</span>
                 <p class="review-text">
-                    مباراة درامية بكل ما في الكلمة من معنى! تقلبات، أخطاء دفاعية فادحة، ولكن في النهاية شخصية البطل تظهر. صلاح كان رائعًا اليوم.
+                    لا أستطيع وصف ما شعرت به خلال هذه المباراة. التقلبات الدرامية، الأداء الأسطوري لميسي، والتتويج الذي انتظره العالم بأكمله.
                 </p>
                 <div class="review-rating">
                     <div class="stars">
@@ -1280,11 +1155,11 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+                        <i class="fas fa-star"></i>
                     </div>
                     <div class="review-stats">
-                        <span><i class="far fa-heart"></i> 45</span>
-                        <span><i class="far fa-comment"></i> 12</span>
+                        <span><i class="far fa-heart"></i> 234</span>
+                        <span><i class="far fa-comment"></i> 45</span>
                     </div>
                 </div>
             </div>
@@ -1297,21 +1172,21 @@
                         <div class="reviewer-handle">@omarkhaled</div>
                     </div>
                 </div>
-                <span class="review-match-tag">يوفنتوس × ميلان - الكالتشيو</span>
+                <span class="review-match-tag">نهائي دوري الأبطال 2005 - ليفربول × ميلان</span>
                 <p class="review-text">
-                    انتصار سهل ليوفنتوس، لكن الميلان ظهر بشكل مخيب. الدفاع كان كارثة، ووسط الملعب فقد الكرة بسهولة. أملك في التحسن في المباريات القادمة.
+                    معجزة إسطنبول... من 3-0 إلى 3-3. لا يوجد ما يمكن إضافته. هذه المباراة علّمتني أن كرة القدم لا تنتهي حتى الصافرة الأخيرة.
                 </p>
                 <div class="review-rating">
                     <div class="stars">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <i class="far fa-star empty"></i>
-                        <i class="far fa-star empty"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
                     <div class="review-stats">
-                        <span><i class="far fa-heart"></i> 23</span>
-                        <span><i class="far fa-comment"></i> 8</span>
+                        <span><i class="far fa-heart"></i> 189</span>
+                        <span><i class="far fa-comment"></i> 67</span>
                     </div>
                 </div>
             </div>
@@ -1324,9 +1199,9 @@
                         <div class="reviewer-handle">@fahd_salem</div>
                     </div>
                 </div>
-                <span class="review-match-tag">بايرن ميونخ × مانشستر سيتي - دوري الأبطال</span>
+                <span class="review-match-tag">برشلونة × ريال مدريد 2010 - الكلاسيكو التاريخي</span>
                 <p class="review-text">
-                    لا أطيق الانتظار! هذه المباراة ستكون حربًا تكتيكية بين جوارديولا وتوخيل. توقعاتي: هالاند يسجل وهناك أهداف كثيرة 🔥
+                    5-0 في الكامب نو تحت قيادة جوارديولا. هذا الفريق كان آلة كروية لا تُقهر. تيكي تاكا في أبهى صورها. ميسي في ذروته. مباراة للتاريخ.
                 </p>
                 <div class="review-rating">
                     <div class="stars">
@@ -1334,10 +1209,10 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
                     </div>
                     <div class="review-stats">
-                        <span><i class="far fa-heart"></i> 89</span>
+                        <span><i class="far fa-heart"></i> 156</span>
                         <span><i class="far fa-comment"></i> 34</span>
                     </div>
                 </div>
