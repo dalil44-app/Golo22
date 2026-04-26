@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GOLO - عالم كرة القدم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f4f4f4;
+            --bg-dark: #1a1a1a;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-muted: #999999;
+            --accent: #2d6a4f;
+            --accent-light: #40916c;
+            --border: #e0e0e0;
+            --border-light: #eeeeee;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-hover: 0 4px 16px rgba(0,0,0,0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+        }
+
+        /* ===== TOP HEADER - GOLO ===== */
+        .top-header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 14px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-golo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--text-primary);
+            letter-spacing: 3px;
+            text-decoration: none;
+        }
+
+        .logo-golo span {
+            color: var(--accent);
+        }
+
+        /* ===== UPPER NAVIGATION ===== */
+        .upper-nav {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 0 20px;
+            position: sticky;
+            top: 56px;
+            z-index: 99;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .upper-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0;
+            min-width: max-content;
+        }
+
+        .nav-tab {
+            padding: 14px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 2.5px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            cursor: pointer;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .nav-tab:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== MATCHES SECTION ===== */
+        .date-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 0 4px;
+        }
+
+        .date-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .date-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .match-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .match-item:hover {
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border);
+        }
+
+        .match-league-bar {
+            background: var(--bg-secondary);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .league-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: white;
+        }
+
+        .league-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .match-time-badge {
+            margin-right: auto;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent);
+            background: rgba(45, 106, 79, 0.1);
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .match-body {
+            padding: 20px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .team-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .team-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: 2px solid var(--border-light);
+        }
+
+        .team-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .match-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            min-width: 80px;
+        }
+
+        .match-score {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--text-primary);
+            letter-spacing: 4px;
+        }
+
+        .match-status {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .status-live {
+            background: #e74c3c;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .status-upcoming {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        .status-finished {
+            background: var(--accent);
+            color: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .match-minute {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .match-actions {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            border-top: 1px solid var(--border-light);
+            background: var(--bg-secondary);
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .action-btn.primary {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--accent-light);
+        }
+
+        /* ===== NEWS SECTION ===== */
+        .news-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--bg-secondary);
+        }
+
+        .news-content {
+            padding: 16px;
+        }
+
+        .news-tag {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .news-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .news-excerpt {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .news-meta i {
+            margin-left: 4px;
+        }
+
+        /* ===== LISTS SECTION ===== */
+        .list-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .list-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .list-header {
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .list-thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            flex-shrink: 0;
+            border: 2px solid var(--border-light);
+        }
+
+        .list-info {
+            flex: 1;
+        }
+
+        .list-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .list-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .list-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 12px;
+        }
+
+        .list-matches-preview {
+            display: flex;
+            padding: 0 16px 16px;
+            gap: 8px;
+        }
+
+        .preview-match {
+            flex: 1;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+
+        /* ===== REVIEWS SECTION ===== */
+        .review-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            padding: 16px;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .reviewer-info {
+            flex: 1;
+        }
+
+        .reviewer-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .reviewer-handle {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .review-match-tag {
+            display: inline-block;
+            background: rgba(45, 106, 79, 0.1);
+            color: var(--accent);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .review-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .review-rating {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stars {
+            display: flex;
+            gap: 3px;
+        }
+
+        .stars i {
+            color: var(--accent);
+            font-size: 14px;
+        }
+
+        .stars i.empty {
+            color: var(--border);
+        }
+
+        .review-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .review-stats span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .review-stats span:hover {
+            color: var(--accent);
+        }
+
+        /* ===== BOTTOM NAVIGATION ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .bottom-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 6px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .bottom-btn i {
+            font-size: 22px;
+            margin-bottom: 2px;
+        }
+
+        .bottom-btn:hover, .bottom-btn.active {
+            color: var(--accent);
+        }
+
+        .bottom-btn.add-btn {
+            background: var(--accent);
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -20px;
+            box-shadow: 0 4px 12px rgba(45, 106, 79, 0.4);
+            border: 4px solid var(--bg-primary);
+        }
+
+        .bottom-btn.add-btn i {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .bottom-btn.add-btn:hover {
+            background: var(--accent-light);
+            transform: scale(1.05);
+        }
+
+        /* ===== ADD MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-sheet {
+            background: var(--bg-primary);
+            border-radius: 24px 24px 0 0;
+            width: 100%;
+            max-width: 500px;
+            padding: 24px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-sheet {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .modal-option {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+        }
+
+        .modal-option:hover {
+            background: var(--bg-secondary);
+        }
+
+        .modal-option-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .modal-option-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+
+        .modal-option-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ===== SEARCH OVERLAY ===== */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            animation: slideUp 0.3s ease;
+        }
+
+        .search-overlay.show {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .search-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input-wrapper input {
+            width: 100%;
+            padding: 12px 40px 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            font-size: 15px;
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .search-input-wrapper input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .search-input-wrapper i {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .search-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-results {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .search-category {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            margin-top: 20px;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .search-result-item:hover {
+            background: var(--bg-secondary);
+        }
+
+        .result-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        .result-info h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .result-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ===== MORE MENU ===== */
+        .more-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .more-menu.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .more-sheet {
+            position: absolute;
+            bottom: 70px;
+            left: 20px;
+            right: 20px;
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            padding: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .more-menu.show .more-sheet {
+            transform: translateY(0);
+        }
+
+        .more-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .more-item:hover {
+            background: var(--bg-secondary);
+        }
+
+        .more-item i {
+            font-size: 18px;
+            color: var(--text-secondary);
+            width: 24px;
+            text-align: center;
+        }
+
+        .more-item span {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text-primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 14px;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.4s;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ===== DESKTOP ===== */
+        @media (min-width: 768px) {
+            body {
+                padding-bottom: 0;
+                padding-top: 110px;
+            }
+
+            .bottom-nav {
+                display: none;
+            }
+
+            .top-header {
+                position: fixed;
+                top: 0;
+            }
+
+            .upper-nav {
+                position: fixed;
+                top: 56px;
+                justify-content: center;
+            }
+
+            .nav-tabs {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .main-content {
+                max-width: 800px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header -->
+    <header class="top-header">
+        <a href="#" class="logo-golo">GO<span>LO</span></a>
+    </header>
+
+    <!-- Upper Navigation -->
+    <nav class="upper-nav">
+        <div class="nav-tabs">
+            <button class="nav-tab" data-section="news">أخبار</button>
+            <button class="nav-tab" data-section="lists">قوائم</button>
+            <button class="nav-tab" data-section="reviews">مراجعات</button>
+            <button class="nav-tab active" data-section="matches">مباريات اليوم</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- MATCHES SECTION (Active by default) -->
+        <section id="matches-section" class="section-content active">
+            <div class="date-header">
+                <div>
+                    <div class="date-title">مباريات اليوم</div>
+                    <div class="date-subtitle">السبت، 26 أبريل 2026</div>
+                </div>
+            </div>
+
+            <!-- Live Match -->
+            <div class="match-item">
+                <div class="match-league-bar">
+                    <div class="league-icon"><i class="fas fa-trophy"></i></div>
+                    <span class="league-name">الدوري الإنجليزي الممتاز</span>
+                    <span class="match-time-badge">مباشر</span>
+                </div>
+                <div class="match-body">
+                    <div class="team-side">
+                        <div class="team-logo">⚽</div>
+                        <div class="team-name">ليفربول</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-score">2 - 1</div>
+                        <span class="match-status status-live">مباشر</span>
+                        <span class="match-minute">الدقيقة 67</span>
+                    </div>
+                    <div class="team-side">
+                        <div class="team-logo">⚽</div>
+                        <div class="team-name">توتنهام</div>
+                    </div>
+                </div>
+                <div class="match-actions">
+                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى المفضلة')">
+                        <i class="far fa-heart"></i> مفضلة
+                    </button>
+                    <button class="action-btn primary" onclick="showToast('افتح صفحة التقييم')">
+                        <i class="fas fa-pen"></i> راجع المباراة
+                    </button>
+                </div>
+            </div>
+
+            <!-- Upcoming Match 1 -->
+            <div class="match-item">
+                <div class="match-league-bar">
+                    <div class="league-icon"><i class="fas fa-trophy"></i></div>
+                    <span class="league-name">الدوري الإسباني</span>
+                    <span class="match-time-badge">21:00</span>
+                </div>
+                <div class="match-body">
+                    <div class="team-side">
+                        <div class="team-logo">⚽</div>
+                        <div class="team-name">ريال مدريد</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-score">- -</div>
+                        <span class="match-status status-upcoming">لم تبدأ</span>
+                        <span class="match-minute">خلال 4 ساعات</span>
+                    </div>
+                    <div class="team-side">
+                        <div class="team-logo">⚽</div>
+                        <div class="team-name">برشلونة</div>
+                    </div>
+                </div>
+                <div class="match-actions">
+                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى التذكيرات')">
+                        <i class="far fa-bell"></i> ذكرني
+                    </button>
+                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى القائمة')">
+                        <i class="fas fa-plus"></i> أضف للقائمة
+                    </button>
+                </div>
+            </div>
+
+            <!-- Upcoming Match 2 -->
+            <div class="match-item">
+                <div class="match-league-bar">
+                    <div class="league-icon"><i class="fas fa-trophy"></i></div>
+                    <span class="league-name">دوري أبطال أوروبا</span>
+                    <span class="match-time-badge">23:00</span>
+                </div>
+                <div class="match-body">
+                    <div class="team-side">
+                        <div class="team-logo">⚽</div>
+                        <div class="team-name">بايرن ميونخ</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-score">- -</div>
+                        <span class="match-status status-upcoming">لم تبدأ</span>
+                        <span class="match-minute">خلال 6 ساعات</span>
+                    </div>
+                    <div class="team-side">
+                        <div class="team-logo">⚽</div>
+                        <div class="team-name">مانشستر سيتي</div>
+                    </div>
+                </div>
+                <div class="match-actions">
+                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى التذكيرات')">
+                        <i class="far fa-bell"></i> ذكرني
+                    </button>
+                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى القائمة')">
+                        <i class="fas fa-plus"></i> أضف للقائمة
+                    </button>
+                </div>
+            </div>
+
+            <!-- Finished Match -->
+            <div class="match-item">
+                <div class="match-league-bar">
+                    <div class="league-icon"><i class="fas fa-trophy"></i></div>
+                    <span class="league-name">الدوري الإيطالي</span>
+                    <span class="match-time-badge">انتهت</span>
+                </div>
+                <div class="match-body">
+                    <div class="team-side">
+                        <div class="team-logo">⚽</div>
+                        <div class="team-name">يوفنتوس</div>
+                    </div>
+                    <div class="match-center">
+                        <div class="match-score">3 - 0</div>
+                        <span class="match-status status-finished">انتهت</span>
+                    </div>
+                    <div class="team-side">
+                        <div class="team-logo">⚽</div>
+                        <div class="team-name">ميلان</div>
+                    </div>
+                </div>
+                <div class="match-actions">
+                    <button class="action-btn" onclick="showToast('تمت الإضافة إلى المفضلة')">
+                        <i class="far fa-heart"></i> مفضلة
+                    </button>
+                    <button class="action-btn primary" onclick="showToast('افتح صفحة التقييم')">
+                        <i class="fas fa-pen"></i> راجع المباراة
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWS SECTION -->
+        <section id="news-section" class="section-content">
+            <div class="date-header">
+                <div class="date-title">أخبار كرة القدم</div>
+            </div>
+
+            <div class="news-item">
+                <img class="news-image" src="https://images.unsplash.com/photo-1522778119026-d647f0565c6a?w=600" alt="News">
+                <div class="news-content">
+                    <span class="news-tag">تحليل</span>
+                    <h3 class="news-title">ليفربول يقترب من حسم لقب البريميرليغ بعد فوز قاتل على توتنهام</h3>
+                    <p class="news-excerpt">أظهر الفريق الأحمر شخصية البطل في المباراة التي شهدت تقلبات درامية حتى الدقيقة الأخيرة...</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-clock"></i> منذ ساعتين</span>
+                        <span><i class="far fa-comment"></i> 45 تعليق</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item">
+                <img class="news-image" src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600" alt="News">
+                <div class="news-content">
+                    <span class="news-tag">عاجل</span>
+                    <h3 class="news-title">إصابة هالاند تقلق مانشستر سيتي قبل مواجهة بايرن ميونخ</h3>
+                    <p class="news-excerpt">غاب النجم النرويجي عن التدريبات الجماعية اليوم وسط شكوك حول مشاركته في المباراة الحاسمة...</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-clock"></i> منذ 4 ساعات</span>
+                        <span><i class="far fa-comment"></i> 128 تعليق</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-content">
+                    <span class="news-tag">تقرير</span>
+                    <h3 class="news-title">كلاسيكو الأرض: المواجهة 252 بين ريال مدريد وبرشلونة</h3>
+                    <p class="news-excerpt">تاريخ حافل من المواجهات الأسطورية، من هاتريك رونالدو إلى ميسي الساحر، كل ما تريد معرفته قبل المباراة...</p>
+                    <div class="news-meta">
+                        <span><i class="far fa-clock"></i> منذ 6 ساعات</span>
+                        <span><i class="far fa-comment"></i> 89 تعليق</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LISTS SECTION -->
+        <section id="lists-section" class="section-content">
+            <div class="date-header">
+                <div class="date-title">قوائم المستخدمين</div>
+            </div>
+
+            <div class="list-card">
+                <div class="list-header">
+                    <div class="list-thumbnail">🏆</div>
+                    <div class="list-info">
+                        <div class="list-title">أفضل 10 مباريات في تاريخ الكلاسيكو</div>
+                        <div class="list-desc">من مباراة 5-0 لبرشلونة إلى ريمونتادا ريال مدريد، هذه القائمة تحتوي على أجدر المواجهات</div>
+                        <div class="list-meta">
+                            <span><i class="fas fa-user"></i> محمد العلي</span>
+                            <span><i class="fas fa-heart"></i> 234</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-matches-preview">
+                    <div class="preview-match">برشلونة 5-0 ريال مدريد 2010</div>
+                    <div class="preview-match">ريال مدريد 2-6 برشلونة 2009</div>
+                    <div class="preview-match">برشلونة 1-2 ريال مدريد 2016</div>
+                </div>
+            </div>
+
+            <div class="list-card">
+                <div class="list-header">
+                    <div class="list-thumbnail">⭐</div>
+                    <div class="list-info">
+                        <div class="list-title">مباريات لا تُنسى: نهائيات كأس العالم</div>
+                        <div class="list-desc">اللحظات التي حددت التاريخ، من مارادونا إلى ميسي، كل نهائي ترك بصمة في الذاكرة</div>
+                        <div class="list-meta">
+                            <span><i class="fas fa-user"></i> فهد السالم</span>
+                            <span><i class="fas fa-heart"></i> 567</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-matches-preview">
+                    <div class="preview-match">الأرجنتين 3-3 فرنسا 2022</div>
+                    <div class="preview-match">ألمانيا 1-0 الأرجنتين 2014</div>
+                    <div class="preview-match">إيطاليا 1-1 فرنسا 2006</div>
+                </div>
+            </div>
+
+            <div class="list-card">
+                <div class="list-header">
+                    <div class="list-thumbnail">🔥</div>
+                    <div class="list-info">
+                        <div class="list-title">أعنف مباريات دوري الأبطال</div>
+                        <div class="list-desc">المواجهات التي شهدت أكثر الأهداف والإثارة في تاريخ المسابقة القارية</div>
+                        <div class="list-meta">
+                            <span><i class="fas fa-user"></i> عمر الخالدي</span>
+                            <span><i class="fas fa-heart"></i> 189</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-matches-preview">
+                    <div class="preview-match">ليفربول 3-3 ميلان 2005</div>
+                    <div class="preview-match">توتنهام 3-2 أياكس 2019</div>
+                    <div class="preview-match">برشلونة 6-1 باريس 2017</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVIEWS SECTION -->
+        <section id="reviews-section" class="section-content">
+            <div class="date-header">
+                <div class="date-title">مراجعات الجمهور</div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-avatar">م</div>
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">محمد العلي</div>
+                        <div class="reviewer-handle">@mohammedali</div>
+                    </div>
+                </div>
+                <span class="review-match-tag">ليفربول × توتنهام - البريميرليغ</span>
+                <p class="review-text">
+                    مباراة درامية بكل ما في الكلمة من معنى! تقلبات، أخطاء دفاعية فادحة، ولكن في النهاية شخصية البطل تظهر. صلاح كان رائعًا اليوم.
+                </p>
+                <div class="review-rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="review-stats">
+                        <span><i class="far fa-heart"></i> 45</span>
+                        <span><i class="far fa-comment"></i> 12</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-avatar">ع</div>
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">عمر الخالدي</div>
+                        <div class="reviewer-handle">@omarkhaled</div>
+                    </div>
+                </div>
+                <span class="review-match-tag">يوفنتوس × ميلان - الكالتشيو</span>
+                <p class="review-text">
+                    انتصار سهل ليوفنتوس، لكن الميلان ظهر بشكل مخيب. الدفاع كان كارثة، ووسط الملعب فقد الكرة بسهولة. أملك في التحسن في المباريات القادمة.
+                </p>
+                <div class="review-rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star empty"></i>
+                        <i class="far fa-star empty"></i>
+                    </div>
+                    <div class="review-stats">
+                        <span><i class="far fa-heart"></i> 23</span>
+                        <span><i class="far fa-comment"></i> 8</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-avatar">ف</div>
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">فهد السالم</div>
+                        <div class="reviewer-handle">@fahd_salem</div>
+                    </div>
+                </div>
+                <span class="review-match-tag">بايرن ميونخ × مانشستر سيتي - دوري الأبطال</span>
+                <p class="review-text">
+                    لا أطيق الانتظار! هذه المباراة ستكون حربًا تكتيكية بين جوارديولا وتوخيل. توقعاتي: هالاند يسجل وهناك أهداف كثيرة 🔥
+                </p>
+                <div class="review-rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="review-stats">
+                        <span><i class="far fa-heart"></i> 89</span>
+                        <span><i class="far fa-comment"></i> 34</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="bottom-btn" id="search-btn">
+            <i class="fas fa-search"></i>
+            بحث
+        </button>
+        <button class="bottom-btn" id="more-btn">
+            <i class="fas fa-bars"></i>
+            المزيد
+        </button>
+        <button class="bottom-btn add-btn" id="add-btn">
+            <i class="fas fa-plus"></i>
+        </button>
+        <button class="bottom-btn">
+            <i class="fas fa-list"></i>
+            قوائم
+        </button>
+        <button class="bottom-btn">
+            <i class="fas fa-user"></i>
+            أنا
+        </button>
+    </nav>
+
+    <!-- Add Modal -->
+    <div class="modal-overlay" id="add-modal">
+        <div class="modal-sheet">
+            <div class="modal-header">
+                <h3 class="modal-title">إضافة جديدة</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-option" onclick="showToast('تسجيل مباراة')">
+                <div class="modal-option-icon">
+                    <i class="fas fa-futbol"></i>
+                </div>
+                <div class="modal-option-info">
+                    <h4>تسجيل مباراة شاهدتها</h4>
+                    <p>أضف مباراة لم تكن في القائمة وسجل رأيك فيها</p>
+                </div>
+            </div>
+            <div class="modal-option" onclick="showToast('كتابة تدوينة')">
+                <div class="modal-option-icon">
+                    <i class="fas fa-pen"></i>
+                </div>
+                <div class="modal-option-info">
+                    <h4>كتابة تدوينة</h4>
+                    <p>شارك تحليلك أو رأيك حول أي مباراة أو حدث كروي</p>
+                </div>
+            </div>
+            <div class="modal-option" onclick="showToast('إنشاء قائمة')">
+                <div class="modal-option-icon">
+                    <i class="fas fa-list-ul"></i>
+                </div>
+                <div class="modal-option-info">
+                    <h4>إنشاء قائمة جديدة</h4>
+                    <p>جمّع مبارياتك المفضلة في قائمة واحدة وشاركها</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-header">
+            <div class="search-input-wrapper">
+                <input type="text" placeholder="ابحث عن أندية، لاعبين، مباريات..." id="search-input">
+                <i class="fas fa-search"></i>
+            </div>
+            <button class="search-close" onclick="closeSearch()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="search-results">
+            <div class="search-category">أندية</div>
+            <div class="search-result-item">
+                <div class="result-icon">⚽</div>
+                <div class="result-info">
+                    <h4>ريال مدريد</h4>
+                    <p>الدوري الإسباني • 35 بطولة</p>
+                </div>
+            </div>
+            <div class="search-result-item">
+                <div class="result-icon">⚽</div>
+                <div class="result-info">
+                    <h4>برشلونة</h4>
+                    <p>الدوري الإسباني • 27 بطولة</p>
+                </div>
+            </div>
+
+            <div class="search-category">لاعبون</div>
+            <div class="search-result-item">
+                <div class="result-icon">👤</div>
+                <div class="result-info">
+                    <h4>ليونيل ميسي</h4>
+                    <p>إنتر ميامي • الأرجنتين</p>
+                </div>
+            </div>
+            <div class="search-result-item">
+                <div class="result-icon">👤</div>
+                <div class="result-info">
+                    <h4>كريستيانو رونالدو</h4>
+                    <p>النصر • البرتغال</p>
+                </div>
+            </div>
+
+            <div class="search-category">مباريات</div>
+            <div class="search-result-item">
+                <div class="result-icon">🏆</div>
+                <div class="result-info">
+                    <h4>نهائي كأس العالم 2022</h4>
+                    <p>الأرجنتين × فرنسا • 3-3</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- More Menu -->
+    <div class="more-menu" id="more-menu">
+        <div class="more-sheet">
+            <div class="more-item" onclick="showToast('الملف الشخصي')">
+                <i class="fas fa-user"></i>
+                <span>الملف الشخصي</span>
+            </div>
+            <div class="more-item" onclick="showToast('الإحصائيات')">
+                <i class="fas fa-chart-bar"></i>
+                <span>الإحصائيات المتقدمة</span>
+            </div>
+            <div class="more-item" onclick="showToast('الإعدادات')">
+                <i class="fas fa-cog"></i>
+                <span>الإعدادات</span>
+            </div>
+            <div class="more-item" onclick="showToast('المفضلة')">
+                <i class="fas fa-heart"></i>
+                <span>المباريات المفضلة</span>
+            </div>
+            <div class="more-item" onclick="showToast('التذكيرات')">
+                <i class="fas fa-bell"></i>
+                <span>التذكيرات</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Tab Switching
+        const tabs = document.querySelectorAll('.nav-tab');
+        const sections = document.querySelectorAll('.section-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetSection = tab.dataset.section;
+
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(targetSection + '-section').classList.add('active');
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Add Modal
+        const addBtn = document.getElementById('add-btn');
+        const addModal = document.getElementById('add-modal');
+
+        addBtn.addEventListener('click', () => {
+            addModal.classList.add('show');
+        });
+
+        function closeModal() {
+            addModal.classList.remove('show');
+        }
+
+        addModal.addEventListener('click', (e) => {
+            if (e.target === addModal) closeModal();
+        });
+
+        // Search Overlay
+        const searchBtn = document.getElementById('search-btn');
+        const searchOverlay = document.getElementById('search-overlay');
+        const searchInput = document.getElementById('search-input');
+
+        searchBtn.addEventListener('click', () => {
+            searchOverlay.classList.add('show');
+            setTimeout(() => searchInput.focus(), 300);
+        });
+
+        function closeSearch() {
+            searchOverlay.classList.remove('show');
+        }
+
+        // More Menu
+        const moreBtn = document.getElementById('more-btn');
+        const moreMenu = document.getElementById('more-menu');
+
+        moreBtn.addEventListener('click', () => {
+            moreMenu.classList.add('show');
+        });
+
+        moreMenu.addEventListener('click', (e) => {
+            if (e.target === moreMenu) moreMenu.classList.remove('show');
+        });
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.search-result-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(query) ? 'flex' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
